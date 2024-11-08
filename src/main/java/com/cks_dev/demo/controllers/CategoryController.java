@@ -1,6 +1,7 @@
 package com.cks_dev.demo.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import com.cks_dev.demo.payloads.ApiResponse;
 import com.cks_dev.demo.payloads.CategoryDto;
 import com.cks_dev.demo.services.CategoryService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
@@ -26,14 +29,15 @@ public class CategoryController {
 
     // CREATE
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto categoryDto)
+     {
         CategoryDto createdCategoryDto = this.categoryService.createCategoryDto(categoryDto);
         return new ResponseEntity<>(createdCategoryDto, HttpStatus.CREATED);
     }
 
     // UPDATE
     @PutMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto, @PathVariable Integer categoryId) {
+    public ResponseEntity<CategoryDto> updateCategory(@Valid @RequestBody CategoryDto categoryDto, @PathVariable Integer categoryId) {
         CategoryDto updatedCategoryDto = this.categoryService.updateCategoryDto(categoryDto, categoryId);
         return new ResponseEntity<>(updatedCategoryDto, HttpStatus.OK);
     }
