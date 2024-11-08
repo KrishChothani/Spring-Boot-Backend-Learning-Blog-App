@@ -2,7 +2,6 @@ package com.cks_dev.demo.services.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -50,7 +49,7 @@ public class PostServiceImpl implements PostService {
 
         Post updatedPost = this.postRepo.save(post);
 
-        return this.modelMapper.map(post, PostDto.class);
+        return this.modelMapper.map(updatedPost, PostDto.class);
     }
 
     @Override
@@ -77,14 +76,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPostByCategory(Integer categoryId) {
+    public List<PostDto> getPostByCategory(Integer categoryId) {
+        
+        Category category = this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("category", "Category Id", categoryId));
+        List<Post> posts= this.postRepo.findByCategory(category);
 
-        return null;
+        List<PostDto> postDtos =  posts.stream()
+                                        .map((post) -> this.modelMapper.map(post, PostDto.class))
+                                        .collect(Collectors.toList());
+        return postDtos;
     }
 
     @Override
     public List<PostDto> getPostByUser(Integer userId) {
-        return null;
+        User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "User Id ", userId));
+        List<Post> posts = this.postRepo.findByUser(user);
+
+        List<PostDto> postDtos = posts.stream()
+                                        .map((post) -> this.modelMapper.map(post, PostDto.class))
+                                        .collect(Collectors.toList());
+
+        return postDtos;
     }
 
     @Override

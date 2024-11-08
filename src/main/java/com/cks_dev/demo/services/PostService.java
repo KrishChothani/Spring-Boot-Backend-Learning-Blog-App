@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.cks_dev.demo.models.Post;
 import com.cks_dev.demo.payloads.PostDto;
 
 @Service
@@ -21,7 +20,7 @@ public interface PostService {
 
     PostDto getPostById(Integer postId);
 
-    List<PostDto> getAllPostByCategory(Integer categoryId);
+    List<PostDto> getPostByCategory(Integer categoryId);
 
     List<PostDto> getPostByUser(Integer userId);
 
