@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PostDto {
+    private Integer postId;
 
     @NotEmpty
     private String title;
