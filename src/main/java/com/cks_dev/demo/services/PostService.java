@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.cks_dev.demo.payloads.PostDto;
+import com.cks_dev.demo.payloads.PostResponse;
 
 @Service
 public interface PostService {
@@ -16,7 +17,7 @@ public interface PostService {
 
     void deletePost(Integer postId);
 
-    List<PostDto> getAllPost();
+    PostResponse getAllPost(Integer pageNumber , Integer pageSize);
 
     PostDto getPostById(Integer postId);
 
